@@ -10,18 +10,18 @@ $app = new \Slim\App;
 $app->post('/minify/css', function (Request $request, Response $response) {
 	
 	$responseData=[
-		'status'	=>	'error',
-		'style'		=> 	'',
-		'message'	=> 	''
+		'status'			=>	'error',
+		'minified_resource'	=> 	'',
+		'message'			=> 	''
 	];
 
 	try{
 		$data = $request->getParsedBody();
-    	$style = filter_var($data['style'], FILTER_SANITIZE_STRING);
+    	$style = filter_var($data['unminified_resource'], FILTER_SANITIZE_STRING);
     	$minifier = new Minify\CSS($style);
     	$minified = $minifier->minify();
     	$responseData['status'] = 'success';
-    	$responseData['style'] = $minified;
+    	$responseData['minified_resource'] = $minified;
     	unset($minifier);    	
 	}
    	catch(Exception $e){
@@ -39,18 +39,18 @@ $app->post('/minify/css', function (Request $request, Response $response) {
 $app->post('/minify/js', function (Request $request, Response $response) {
 	
 	$responseData=[
-		'status'	=>	'error',
-		'script'	=> 	'',
-		'message'	=> 	''
+		'status'			=>	'error',
+		'minified_resource'	=> 	'',
+		'message'			=> 	''
 	];
 
 	try{
 		$data = $request->getParsedBody();
-    	$script = filter_var($data['script'], FILTER_SANITIZE_STRING);
+    	$script = filter_var($data['unminified_resource'], FILTER_SANITIZE_STRING);
     	$minifier = new Minify\JS($script);
     	$minified = $minifier->minify();
     	$responseData['status'] = 'success';
-    	$responseData['script'] = $minified;
+    	$responseData['minified_resource'] = $minified;
     	unset($minifier);    	
 	}
    	catch(Exception $e){

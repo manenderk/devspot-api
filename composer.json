@@ -1,0 +1,6 @@
+{
+    "require": {
+        "slim/slim": "^3.12",
+        "matthiasmullie/minify": "^1.3"
+    }
+}
